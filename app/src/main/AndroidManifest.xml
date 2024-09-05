@@ -13,10 +13,23 @@
         android:theme="@style/Theme.Powerful_Alarm"
         tools:targetApi="31">
         <activity
+            android:name=".AlarmWeather"
+            android:exported="false" />
+        <activity
+            android:name=".AlarmDate"
+            android:exported="false" />
+        <activity
+            android:name=".AreaSettings"
+            android:exported="false" />
+        <activity
+            android:name=".AlarmSettings"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
