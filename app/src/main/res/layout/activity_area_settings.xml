@@ -3,8 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AreaSettings">
+
+    <Spinner
+        android:id="@+id/area"
+        android:layout_width="200sp"
+        android:layout_height="50sp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </Spinner>
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:paddingTop="10sp"
+        android:paddingLeft="10sp"
+        android:scrollbarSize="30sp"
+        app:srcCompat="@drawable/baseline_arrow_back_24_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </ImageView>
+
+    <TextView
+        android:text="居住地を選択"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/area"
+        android:textColor="@color/text">
+    </TextView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
