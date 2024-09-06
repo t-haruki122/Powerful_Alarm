@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Powerful_Alarm</string>
 
+    <string name="alarmTitle">アラーム</string>
+    <string name="create">＋</string>
+    <string name="delete">－</string>
+
     <string-array name="area_list">
         <item name="sapporo">札幌</item>
         <item name="tokyo">東京</item>
