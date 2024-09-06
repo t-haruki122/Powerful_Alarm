@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 public class AreaSettings extends AppCompatActivity {
-    private ActivityAreaSettingsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
