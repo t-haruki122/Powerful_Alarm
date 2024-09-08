@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">Powerful_Alarm</string>
 
-    <string name="alarmTitle">アラーム</string>
-    <string name="create">＋</string>
-    <string name="delete">－</string>
+    <string-array name="date">
+        <item>設定なし</item>
+        <item>日曜日</item>
+        <item>月曜日</item>
+        <item>火曜日</item>
+        <item>水曜日</item>
+        <item>木曜日</item>
+        <item>金曜日</item>
+        <item>土曜日</item>
+    </string-array>
 
-    <string-array name="area_list">
-        <item name="sapporo">札幌</item>
-        <item name="tokyo">東京</item>
-        <item name="nagoya">名古屋</item>
-        <item name="osaka">大阪</item>
-        <item name="fukuoka">福岡</item>
+    <string-array name="sound">
+        <item>サウンドA</item>
+        <item>サウンドB</item>
     </string-array>
 </resources>
