@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".AlarmSettings">
 
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:paddingTop="10sp"
+        android:paddingLeft="10sp"
+        android:scrollbarSize="30sp"
+        android:translationZ="10dp"
+        app:srcCompat="@drawable/baseline_arrow_back_24_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/save"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:paddingTop="10sp"
+        android:paddingRight="10sp"
+        android:translationZ="10dp"
+        app:srcCompat="@drawable/check_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarInput"
         android:layout_width="match_parent"
@@ -22,31 +46,62 @@
         android:id="@+id/time_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:headerBackground="@color/design_default_color_primary"
+        android:headerBackground="#008080"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarInput" />
 
     <Spinner
-        android:id="@+id/dato"
+        android:id="@+id/date"
         android:layout_width="166dp"
         android:layout_height="63dp"
+        android:background="#008080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbarInput"
-        app:layout_constraintVertical_bias="0.752" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <Spinner
         android:id="@+id/sound"
         android:layout_width="166dp"
         android:layout_height="63dp"
+        android:background="#008080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbarInput"
         app:layout_constraintVertical_bias="0.895" />
+
+    <TextView
+        android:id="@+id/label_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Date : "
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginEnd="-60dp"
+        app:layout_constraintEnd_toStartOf="@+id/date"
+        app:layout_constraintTop_toTopOf="@+id/date"
+        app:layout_constraintBottom_toBottomOf="@+id/date"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/label_sound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Sound : "
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginEnd="-37dp"
+        app:layout_constraintEnd_toStartOf="@+id/sound"
+        app:layout_constraintTop_toTopOf="@+id/sound"
+        app:layout_constraintBottom_toBottomOf="@+id/sound"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
