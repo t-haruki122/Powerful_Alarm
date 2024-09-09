@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Powerful_Alarm</string>
 
+    <string name="alarmTitle">アラーム</string>
+    <string name="create">＋</string>
+    <string name="delete">－</string>
+
     <string-array name="date">
         <item>設定なし</item>
         <item>日曜日</item>
