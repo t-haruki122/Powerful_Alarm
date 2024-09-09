@@ -11,6 +11,14 @@
         <item>金曜日</item>
         <item>土曜日</item>
     </string-array>
+    
+    <string-array name="area_list">
+        <item>札幌</item>
+        <item>東京</item>
+        <item>名古屋</item>
+        <item>大阪</item>
+        <item>福岡</item>
+    </string-array>
 
     <string-array name="sound">
         <item>サウンドA</item>

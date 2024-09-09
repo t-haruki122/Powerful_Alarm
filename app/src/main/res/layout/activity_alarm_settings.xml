@@ -20,6 +20,17 @@
         app:layout_constraintStart_toStartOf="parent">
     </ImageView>
 
+    <ImageView
+        android:id="@+id/save"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:paddingTop="10sp"
+        android:paddingRight="10sp"
+        android:translationZ="10dp"
+        app:srcCompat="@drawable/check_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarInput"
         android:layout_width="match_parent"
@@ -91,5 +102,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/sound"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package jp.ac.meijou.android.powerful_alarm;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.health.connect.datatypes.SexualActivityRecord;
 import android.os.Bundle;
 import android.view.View;
@@ -41,7 +42,6 @@ public class AlarmSettings extends AppCompatActivity {
                 R.layout.custom_spinner,
                 getResources().getStringArray(R.array.date)
         );
-
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         binding.date.setAdapter(adapter);
 
@@ -51,8 +51,16 @@ public class AlarmSettings extends AppCompatActivity {
                 R.layout.custom_spinner,
                 getResources().getStringArray(R.array.sound)
         );
-
         soundAdapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         binding.sound.setAdapter(soundAdapter);
+
+
+        // return main
+        binding.previous.setOnClickListener(view -> {
+            Intent intent = new Intent(AlarmSettings.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
     }
 }
