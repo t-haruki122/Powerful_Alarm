@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.health.connect.datatypes.SexualActivityRecord;
 import android.os.Bundle;
+import android.security.ConfirmationAlreadyPresentingException;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,8 @@ import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAlarmSettingsBind
 public class AlarmSettings extends AppCompatActivity {
 
     private ActivityAlarmSettingsBinding binding;
+    private int reqCode = -1; // requestコードを保持
+    private int alarmID = -1; // アラームIDを保持
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,5 +65,13 @@ public class AlarmSettings extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        Intent intent = getIntent();
+        reqCode = intent.getIntExtra(getString(R.string.request_code), -1);
+        alarmID = intent.getIntExtra(getString(R.string.alarm_id), -1);
+
+        if (reqCode == MainActivity.EDIT_REQ_CODE) {
+
+        }
     }
 }

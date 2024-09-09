@@ -1,5 +1,6 @@
 package jp.ac.meijou.android.powerful_alarm;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    final static public  int EDIT_REQ_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
