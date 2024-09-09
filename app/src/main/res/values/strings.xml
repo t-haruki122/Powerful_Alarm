@@ -24,4 +24,8 @@
         <item>サウンドA</item>
         <item>サウンドB</item>
     </string-array>
+
+    <string name="request_code">request_code_value</string> <!-- リクエストコード用のキー -->
+    <string name="alarm_id">alarm_id</string> <!-- アラームID用 -->
+
 </resources>
