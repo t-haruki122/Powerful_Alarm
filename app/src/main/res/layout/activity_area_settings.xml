@@ -3,15 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AreaSettings">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="17dp" />
+
     <Spinner
-        android:id="@+id/area"
+        android:id="@+id/areaSpinner"
         android:layout_width="200sp"
         android:layout_height="50sp"
+
+        android:entries="@array/area_list"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,15 +43,42 @@
     </ImageView>
 
     <TextView
+        android:id="@+id/text1"
         android:text="居住地を選択"
         android:gravity="center"
         android:textSize="30sp"
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/area"
-        android:textColor="@color/text">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/areaSpinner">
     </TextView>
+
+    <TextView
+        android:id="@+id/currentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="現在: 名古屋"
+        android:gravity="center"
+        android:textSize="20sp"
+
+        app:layout_constraintTop_toBottomOf="@+id/text1">
+
+    </TextView>
+    
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="決定"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/areaSpinner">
+
+    </Button>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
