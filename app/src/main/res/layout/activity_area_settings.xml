@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="現在: 名古屋"
+        android:text="現在: INIT_0"
         android:gravity="center"
         android:textSize="20sp"
 
