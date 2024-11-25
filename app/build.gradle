@@ -45,4 +45,7 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     coreLibraryDesugaring libs.desuger.jdk.libs
+
+    implementation libs.okhttp
+    implementation libs.moshi
 }

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAlarmSettingsBinding;
 import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAreaSettingsBinding;
+import okhttp3.OkHttpClient;
 
 
 public class AreaSettings extends AppCompatActivity {
