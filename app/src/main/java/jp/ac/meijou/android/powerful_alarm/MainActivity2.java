@@ -43,8 +43,15 @@ public class MainActivity2 extends AppCompatActivity {
             return insets;
         });
 
+        // 右下のプラスボタンを押したらAlarmSettings(アラーム追加)へ
         binding.add.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity2.this, AlarmSettings.class);
+            startActivity(intent);
+        });
+
+        // 右上の設定ボタンを押したらAreaSettings(地域設定)へ
+        binding.setting.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity2.this, AreaSettings.class);
             startActivity(intent);
         });
     }
