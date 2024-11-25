@@ -15,6 +15,7 @@ import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAreaSettingsBindi
 
 public class AreaSettings extends AppCompatActivity {
     private ActivityAreaSettingsBinding binding;
+    private PrefDataStore prefDataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +31,28 @@ public class AreaSettings extends AppCompatActivity {
         binding = ActivityAreaSettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // return main copied from AlarmSettings thank you
+        // PrefDataStore(シングルトン)のインスタンスを取得
+        prefDataStore = PrefDataStore.getInstance(this);
+
+        // 現在の地域を表示
+        binding.currentText.setText("現在: INIT_1");
+        prefDataStore.getString("area")
+                .ifPresent(prev_area -> {
+                    binding.currentText.setText("現在: " + prev_area);
+                    /*
+                    スピナーの初期値を決めるプログラムを書いてもいいかも
+                    と思いたちやってみようとした
+                    // 取得がめんどくさい getString(R.string.area_list)でstring-array取得できない だる
+                    final String[] AREAS =
+                    // 下をfor文で回すと行けるかもしれんけどおもそうだし何回回せばいいかわからんし
+                    binding.areaSpinner.getItemAtPosition()
+                    binding.areaSpinner.setSelection(2); // スピナーの初期値
+                     */
+                });
+
+        // MainActivity2に帰る！！
         binding.previous.setOnClickListener(view -> {
-            Intent intent = new Intent(AreaSettings.this, MainActivity.class);
+            Intent intent = new Intent(AreaSettings.this, MainActivity2.class);
             // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
@@ -40,10 +60,10 @@ public class AreaSettings extends AppCompatActivity {
 
         binding.confirmButton.setOnClickListener(view -> {
             String area = binding.areaSpinner.getSelectedItem().toString();
-            binding.currentText.setText("現在" + ": " + area);
+            binding.currentText.setText("現在: " + area);
 
-            // 選択した地域を保持するプログラムを記述
+            // 選択した地域をデータストアに保持する
+            prefDataStore.setString("area", area);
         });
-
     }
 }
