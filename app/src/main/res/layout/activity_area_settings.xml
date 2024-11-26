@@ -24,6 +24,8 @@
 
         android:entries="@array/area_list"
 
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
