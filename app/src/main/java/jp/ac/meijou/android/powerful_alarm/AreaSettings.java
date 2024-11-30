@@ -119,7 +119,7 @@ public class AreaSettings extends AppCompatActivity {
                         .map(wf -> wf.forecasts.get(0))
                         .map(forecast -> forecast.telop)
                         .ifPresent(todayTelop -> {
-                            binding.weatherInfo.setText("現在の天気: " + todayTelop); // TODO
+                            binding.weatherInfo.setText("現在の天気: " + todayTelop);
                         });
             }
         });
