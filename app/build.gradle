@@ -38,9 +38,14 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation libs.datastore.rxjava3
+    implementation libs.datastore.preferences.rxjava3
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 
     coreLibraryDesugaring libs.desuger.jdk.libs
+
+    implementation libs.okhttp
+    implementation libs.moshi
 }
