@@ -128,6 +128,9 @@ public class AlarmSettings extends AppCompatActivity {
                 alarmName = "My Alarm";  // 名前が入力されていなかった場合のデフォルト
             }
 
+            // スピナーから選択されたサウンドを取得
+            String selectedSound = binding.sound.getSelectedItem().toString();
+
             // データベースにアラームを保存または更新
             if (helper == null) {
                 helper = new DatabaseHelper(this);
@@ -144,6 +147,7 @@ public class AlarmSettings extends AppCompatActivity {
                 values.put("minute", minute);
                 // values.put("days", selectedDay);  // 選択された曜日を保存
                 values.put("days", selectedDaysResult);  // 選択された曜日を保存
+                values.put("sound", selectedSound);  // サウンド列に値を保存
 
                 if (reqCode == MainActivity2.EDIT_REQ_CODE) {
                     // アラームを編集
@@ -200,6 +204,13 @@ public class AlarmSettings extends AppCompatActivity {
                 // 曜日データの復元
                 selectedDaysString = item.getDays(); // 取得した曜日データ
                 binding.dateButton.setText(selectedDaysString);
+
+                // サウンド設定をスピナーに反映
+                String sound = item.getSound();
+                if (sound != null) {
+                    int position = soundAdapter.getPosition(sound);
+                    binding.sound.setSelection(position);
+                }
 
                 // ダイアログ用に選択状態を反映
                 String[] selectedDaysArray = selectedDaysString.split(" ");

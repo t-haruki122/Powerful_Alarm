@@ -29,7 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "name TEXT, "+
                 "hour TEXT, " +
                 "minute TEXT, " +
-                "days TEXT)";
+                "days TEXT, " +
+                "sound TEXT)";      //サウンド追加
         db.execSQL(createTable);
 
         Log.d("DatabaseHelper", "onCreate: テーブルが作成されました");
@@ -51,12 +52,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
 
         if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("alarmID"));
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String hour = cursor.getString(cursor.getColumnIndexOrThrow("hour"));
             String minute = cursor.getString(cursor.getColumnIndexOrThrow("minute"));
             String days = cursor.getString(cursor.getColumnIndexOrThrow("days"));
+            String sound = cursor.getString(cursor.getColumnIndexOrThrow("sound")); // サウンド列を取得
             cursor.close();
-            return new ListItem(name, hour, minute, days);
+            return new ListItem(id, name, hour, minute, days, sound);
         }
 
         return null;
@@ -70,14 +73,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("alarmID"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
                 String hour = cursor.getString(cursor.getColumnIndexOrThrow("hour"));
                 String minute = cursor.getString(cursor.getColumnIndexOrThrow("minute"));
                 String days = cursor.getString(cursor.getColumnIndexOrThrow("days"));
-                alarms.add(new ListItem(name, hour, minute, days));
+                String sound = cursor.getString(cursor.getColumnIndexOrThrow("sound")); // サウンド列を取得
+                alarms.add(new ListItem(id,name, hour, minute, days, sound));
 
                 // デバッグログ: データ取得を確認
-                Log.d("DatabaseHelper", "取得したアラーム: " + hour + ":" + minute);
+                Log.d("DatabaseHelper", "取得したアラーム: ID = " + id + ", " + hour + ":" + minute);
             }
             cursor.close();
         }

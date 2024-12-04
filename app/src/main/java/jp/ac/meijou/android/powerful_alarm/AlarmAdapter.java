@@ -1,10 +1,13 @@
 package jp.ac.meijou.android.powerful_alarm;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,14 +46,33 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             @Override
             public void onDoubleClick(View v) {
                 if (listener != null) {
-                    Log.d("AlarmAdapter", "ダブルクリック検出: ID = " + alarm.getId());
-                    listener.onAlarmDoubleClick(alarm.getId());
+                    Log.d("AlarmAdapter", "ダブルクリック検出: ID = " + alarm.getAlarmID());
+                    listener.onAlarmDoubleClick(alarm.getAlarmID());
                 }
             }
         });
 
         // デバッグ用のログを追加して、どのデータが表示されているか確認
         Log.d("AlarmAdapter", "表示するアラーム: " + alarm.getAlarmName() + " " + alarm.getHour() + ":" + alarm.getMinute() + " 曜日: " + alarm.getDays());
+
+        // 削除ボタンのクリックリスナーを設定
+        holder.deleteButton.setOnClickListener(v -> {
+            DatabaseHelper helper = new DatabaseHelper(holder.itemView.getContext());
+            SQLiteDatabase db = helper.getWritableDatabase();
+
+            int alarmID = alarm.getAlarmID();
+            int rowsDeleted = db.delete("alarms", "alarmID=?", new String[]{String.valueOf(alarmID)});
+
+            if (rowsDeleted > 0) {
+                Toast.makeText(holder.itemView.getContext(), "アラームを削除しました", Toast.LENGTH_SHORT).show();
+                alarmList.remove(position); // リストから削除
+                notifyItemRemoved(position); // UIを更新
+            } else {
+                Toast.makeText(holder.itemView.getContext(), "削除に失敗しました", Toast.LENGTH_SHORT).show();
+            }
+
+            db.close();
+        });
     }
 
     @Override
@@ -67,12 +89,14 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
     public static class AlarmViewHolder extends RecyclerView.ViewHolder {
         TextView alarmName, alarmTime, dates;
+        Button deleteButton; // 削除ボタンを追加
 
         public AlarmViewHolder(@NonNull View itemView) {
             super(itemView);
             alarmName = itemView.findViewById(R.id.alarmName);
             alarmTime = itemView.findViewById(R.id.alarmTime);
             dates = itemView.findViewById(R.id.dates);
+            deleteButton = itemView.findViewById(R.id.deleteButton); // 削除ボタンを取得
         }
     }
 
