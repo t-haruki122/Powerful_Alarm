@@ -62,17 +62,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
-    <Spinner
-        android:id="@+id/date"
-        android:layout_width="166dp"
-        android:layout_height="63dp"
-        android:background="#008080"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.726"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbarInput"
-        app:layout_constraintVertical_bias="0.75" />
+<!--    <Spinner-->
+<!--        android:id="@+id/date"-->
+<!--        android:layout_width="166dp"-->
+<!--        android:layout_height="63dp"-->
+<!--        android:background="#008080"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.726"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/toolbarInput"-->
+<!--        app:layout_constraintVertical_bias="0.75" />-->
 
     <Spinner
         android:id="@+id/sound"
@@ -94,9 +94,9 @@
         android:textSize="30sp"
         android:gravity="center"
         android:layout_marginEnd="-60dp"
-        app:layout_constraintEnd_toStartOf="@+id/date"
-        app:layout_constraintTop_toTopOf="@+id/date"
-        app:layout_constraintBottom_toBottomOf="@+id/date"
+        app:layout_constraintEnd_toStartOf="@+id/dateButton"
+        app:layout_constraintTop_toTopOf="@+id/dateButton"
+        app:layout_constraintBottom_toBottomOf="@+id/dateButton"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -113,6 +113,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/sound"
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/dateButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="設定しない"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbarInput"
+        app:layout_constraintVertical_bias="0.775" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

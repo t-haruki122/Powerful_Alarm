@@ -5,6 +5,7 @@ public class ListItem {
     private String minute;
     private String alarmName;
     private String days;
+    private int id; // アラームID
 
     public ListItem(String alarmName,String hour, String minute, String days) {
         this.hour = hour;
@@ -27,5 +28,13 @@ public class ListItem {
 
     public String getDays() {
         return days;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

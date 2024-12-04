@@ -14,9 +14,12 @@ import java.util.List;
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
     private List<ListItem> alarmList;
+    private OnAlarmClickListener listener;
 
-    public AlarmAdapter(List<ListItem> alarmList) {
+    public AlarmAdapter(List<ListItem> alarmList, OnAlarmClickListener listener) {
+
         this.alarmList = alarmList;
+        this.listener = listener; // コンストラクタでリスナーを初期化
     }
 
     @NonNull
@@ -34,6 +37,17 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         // 曜日を設定
         holder.dates.setText(alarm.getDays());  // 日付のTextViewに曜日を表示
+
+        // ダブルクリック
+        holder.itemView.setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick(View v) {
+                if (listener != null) {
+                    Log.d("AlarmAdapter", "ダブルクリック検出: ID = " + alarm.getId());
+                    listener.onAlarmDoubleClick(alarm.getId());
+                }
+            }
+        });
 
         // デバッグ用のログを追加して、どのデータが表示されているか確認
         Log.d("AlarmAdapter", "表示するアラーム: " + alarm.getAlarmName() + " " + alarm.getHour() + ":" + alarm.getMinute() + " 曜日: " + alarm.getDays());
@@ -60,5 +74,10 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmTime = itemView.findViewById(R.id.alarmTime);
             dates = itemView.findViewById(R.id.dates);
         }
+    }
+
+    // ダブルクリックのインターフェース
+    public interface OnAlarmClickListener {
+        void onAlarmDoubleClick(int alarmID);
     }
 }

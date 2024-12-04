@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/alarmTitle"
         android:textColor="@color/text"
         android:textSize="36sp"
         />
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/create"
         android:textSize="36sp"
         android:textColor="@color/create"
         android:backgroundTint="@color/background"
@@ -36,7 +34,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/delete"
         android:textSize="36sp"
         android:textColor="@color/delete"
         android:backgroundTint="@color/background"
