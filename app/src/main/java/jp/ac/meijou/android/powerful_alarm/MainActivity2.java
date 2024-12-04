@@ -63,7 +63,14 @@ public class MainActivity2 extends AppCompatActivity {
         // デバッグ用ログ: データのサイズを確認
         Log.d("MainActivity", "取得したアラーム数: " + alarms.size());
 
-        alarmAdapter = new AlarmAdapter(alarms);
+        // 変更してます
+        alarmAdapter = new AlarmAdapter(alarms, alarmID -> {
+            // ダブルクリック時に設定画面へ遷移
+            Intent intent = new Intent(MainActivity2.this, AlarmSettings.class);
+            intent.putExtra(getString(R.string.request_code), EDIT_REQ_CODE);
+            intent.putExtra(getString(R.string.alarm_id), alarmID);
+            startActivity(intent);
+        });
 
         // RecyclerViewにアダプタとレイアウトマネージャーを設定
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,8 +92,13 @@ public class MainActivity2 extends AppCompatActivity {
             alarmAdapter.updateAlarms(alarms);
             Log.d("MainActivity2", "アラームリストを更新しました");
         } else {
-            // アダプタがない場合は再初期化
-            alarmAdapter = new AlarmAdapter(alarms);
+            // アダプタがない場合は再初期化 変更あり
+            alarmAdapter = new AlarmAdapter(alarms, alarmID -> {
+                Intent intent = new Intent(MainActivity2.this, AlarmSettings.class);
+                intent.putExtra(getString(R.string.request_code), EDIT_REQ_CODE);
+                intent.putExtra(getString(R.string.alarm_id), alarmID);
+                startActivity(intent);
+            });
             binding.recyclerView.setAdapter(alarmAdapter);
             Log.d("MainActivity2", "アダプターを初期化しました");
         }

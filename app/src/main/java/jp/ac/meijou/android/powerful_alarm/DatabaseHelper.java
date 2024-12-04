@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "alarms.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -47,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ListItem getAlarm(int alarmID) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
-                "alarms", null, "id=?", new String[]{String.valueOf(alarmID)}, null, null, null
+                "alarms", null, "alarmID=?", new String[]{String.valueOf(alarmID)}, null, null, null
         );
 
         if (cursor != null && cursor.moveToFirst()) {

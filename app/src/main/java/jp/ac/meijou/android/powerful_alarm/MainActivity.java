@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    // 消さないでAlarmSettingで使ってます
     final static public  int EDIT_REQ_CODE = 2;
 
     @Override
