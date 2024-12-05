@@ -1,5 +1,6 @@
 package jp.ac.meijou.android.powerful_alarm;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -40,6 +42,9 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
         // 曜日を設定
         holder.dates.setText(alarm.getDays());  // 日付のTextViewに曜日を表示
+
+        // SwitchCompat の状態を設定
+        holder.switchCompat.setChecked(alarm.isActive());
 
         // ダブルクリック
         holder.itemView.setOnClickListener(new DoubleClickListener() {
@@ -73,6 +78,25 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
 
             db.close();
         });
+
+        // Switch の状態変更を検知してデータベースを更新
+        holder.switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            alarm.setActive(isChecked);
+            DatabaseHelper dbHelper = new DatabaseHelper(holder.itemView.getContext());
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("isActive", isChecked ? 1 : 0);
+            String whereClause = "alarmID=?";
+            String[] whereArgs = {String.valueOf(alarm.getAlarmID())};
+
+            int rowsUpdated = db.update("alarms", values, whereClause, whereArgs);
+            if (rowsUpdated > 0) {
+                Log.d("AlarmAdapter", "アラーム状態が更新されました: ID = " + alarm.getAlarmID() + ", isActive = " + isChecked);
+            }
+            db.close();
+        });
+
     }
 
     @Override
@@ -90,6 +114,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
     public static class AlarmViewHolder extends RecyclerView.ViewHolder {
         TextView alarmName, alarmTime, dates;
         Button deleteButton; // 削除ボタンを追加
+        SwitchCompat switchCompat; // スイッチを追加
 
         public AlarmViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +122,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
             alarmTime = itemView.findViewById(R.id.alarmTime);
             dates = itemView.findViewById(R.id.dates);
             deleteButton = itemView.findViewById(R.id.deleteButton); // 削除ボタンを取得
+            switchCompat = itemView.findViewById(R.id.onoff); // XML の ID を設定
         }
     }
 
