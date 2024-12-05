@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "alarms.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,7 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "hour TEXT, " +
                 "minute TEXT, " +
                 "days TEXT, " +
-                "sound TEXT)";      //サウンド追加
+                "sound TEXT, " +                     //サウンド追加
+                "isActive INTEGER DEFAULT 1)";       // isActive を追加 (1: 有効, 0: 無効)
         db.execSQL(createTable);
 
         Log.d("DatabaseHelper", "onCreate: テーブルが作成されました");
@@ -58,8 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String minute = cursor.getString(cursor.getColumnIndexOrThrow("minute"));
             String days = cursor.getString(cursor.getColumnIndexOrThrow("days"));
             String sound = cursor.getString(cursor.getColumnIndexOrThrow("sound")); // サウンド列を取得
+            boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("isActive")) == 1; // 1: 有効, 0: 無効
             cursor.close();
-            return new ListItem(id, name, hour, minute, days, sound);
+            return new ListItem(id, name, hour, minute, days, sound, isActive);
         }
 
         return null;
@@ -79,7 +81,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String minute = cursor.getString(cursor.getColumnIndexOrThrow("minute"));
                 String days = cursor.getString(cursor.getColumnIndexOrThrow("days"));
                 String sound = cursor.getString(cursor.getColumnIndexOrThrow("sound")); // サウンド列を取得
-                alarms.add(new ListItem(id,name, hour, minute, days, sound));
+                boolean isActive = cursor.getInt(cursor.getColumnIndexOrThrow("isActive")) == 1; // 1: 有効, 0: 無効
+                alarms.add(new ListItem(id,name, hour, minute, days, sound, isActive));
 
                 // デバッグログ: データ取得を確認
                 Log.d("DatabaseHelper", "取得したアラーム: ID = " + id + ", " + hour + ":" + minute);
