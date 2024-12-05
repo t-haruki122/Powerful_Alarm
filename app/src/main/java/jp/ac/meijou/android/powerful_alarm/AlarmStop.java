@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAlarmStopBinding;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import android.media.MediaParser;
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageView;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class AlarmStop extends AppCompatActivity {
     private ActivityAlarmStopBinding binding;
-    private MediaParser mediaParser;
+    private MediaPlayer mediaPlayer;
     private List<Integer> imageIdList;
     private Timer timer;
     final private int[] imageIds = {
@@ -47,7 +47,7 @@ public class AlarmStop extends AppCompatActivity {
         String currentTime = current.format(formatter);
 
         //音源再生
-        //mediaParser = MediaParser.create(this,R.raw.komorebi_xylophone);
+        //mediaPlayer = MediaPlayer.create(this,R.raw.komorebi_xylophone);
         //mediaPlayer.start();
 
         imageList = new ImageView[] {
@@ -123,7 +123,7 @@ public class AlarmStop extends AppCompatActivity {
     }
     //アラームを止める
     private void stopAlarmSound() {
-        //if (mediaParser.isPlaying()) mediaParser.pause();
+        //if (mediaPlayer.isPlaying()) mediaPlayer.pause();
         for (ImageView imageView : imageList) {
             imageView.setVisibility(View.INVISIBLE);
         }
