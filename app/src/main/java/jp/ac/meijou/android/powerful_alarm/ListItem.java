@@ -7,14 +7,16 @@ public class ListItem {
     private String alarmName;
     private String days;
     private String sound; // サウンドを表すフィールドを追加
+    private boolean isActive;
 
-    public ListItem(int alarmID,String alarmName,String hour, String minute, String days, String sound) {
+    public ListItem(int alarmID,String alarmName,String hour, String minute, String days, String sound, boolean isActive) {
         this.alarmID = alarmID;
         this.hour = hour;
         this.minute = minute;
         this.alarmName = alarmName;
         this.days = days;
         this.sound = sound;
+        this.isActive = isActive;
     }
 
     // Getter と Setter
@@ -48,5 +50,13 @@ public class ListItem {
 
     public void setSound(String sound) {
         this.sound = sound;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
