@@ -47,8 +47,9 @@ public class AlarmStop extends AppCompatActivity {
         String currentTime = current.format(formatter);
 
         //音源再生
-        //mediaPlayer = MediaPlayer.create(this,R.raw.komorebi_xylophone);
-        //mediaPlayer.start();
+        mediaPlayer = MediaPlayer.create(this,R.raw.komorebixylophone);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         imageList = new ImageView[] {
                 binding.image1, binding.image2, binding.image3
@@ -123,7 +124,7 @@ public class AlarmStop extends AppCompatActivity {
     }
     //アラームを止める
     private void stopAlarmSound() {
-        //if (mediaPlayer.isPlaying()) mediaPlayer.pause();
+        if (mediaPlayer.isPlaying()) mediaPlayer.pause();
         for (ImageView imageView : imageList) {
             imageView.setVisibility(View.INVISIBLE);
         }
