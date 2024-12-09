@@ -2,8 +2,17 @@ package jp.ac.meijou.android.powerful_alarm;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import jp.ac.meijou.android.powerful_alarm.databinding.ActivityAlarmStopBinding;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import android.media.MediaPlayer;
@@ -13,10 +22,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import android.os.Handler;
+
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.widget.TextView;
+
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 
 public class AlarmStop extends AppCompatActivity {
     private ActivityAlarmStopBinding binding;
@@ -35,11 +49,21 @@ public class AlarmStop extends AppCompatActivity {
     private int currentIndex = 0;
     private boolean isInterval = false;
 
+    // Networking Field
+    private final OkHttpClient okHttpClient = new OkHttpClient();
+    private final Moshi moshi = new Moshi.Builder().build();
+    private final JsonAdapter<WeatherForecast> weatherForecastJsonAdapter = moshi.adapter(WeatherForecast.class);
+    private final String url = "https://weather.tsukumijima.net/api/forecast/city/";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAlarmStopBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // インターネットから最新の情報を取得
+        correct = getCorrect();
 
         //現在時刻の取得
         ZonedDateTime current = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
@@ -189,5 +213,55 @@ public class AlarmStop extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (timer != null) timer.cancel();
+    }
+
+    protected int getCorrect() {
+        // Correctを取得する同期関数
+        // 取得に失敗したら R.drawable.sunny を返す
+
+        // areaデータ読み出し
+        // DataStore
+        PrefDataStore prefDataStore = PrefDataStore.getInstance(this);
+        Optional<String> area = prefDataStore.getString("area");
+        if (area.isEmpty()) return R.drawable.sunny;
+
+        // areaデータをareaIdに変換
+        String areaId = AreaSettings.getAreaId(area.get());
+        if (areaId.equals("0")) return R.drawable.sunny;
+
+        // HTTPリクエストを作成
+        Request request = new Request.Builder()
+                .url(url + areaId)
+                .build();
+
+        // 同期的にリクエストを実行
+        // これをバックグラウンド処理にしないとAndroid3.0(API11)以降は怒られるらしい
+        // つまりokHttpのRambda文を使わなければいけない
+        // でもそれを使うと返り値があああああ
+        String telop = "";
+        try (Response response = okHttpClient.newCall(request).execute()) {
+            if (!response.isSuccessful()) return R.drawable.sunny;
+            var weatherForecast = Optional.ofNullable(
+                            weatherForecastJsonAdapter.fromJson(response.body().source())
+                    )
+                    .map(wf -> wf.forecasts.get(0))
+                    .map(forecast -> forecast.telop);
+            if (weatherForecast.isEmpty()) return R.drawable.sunny;
+            telop = weatherForecast.get();
+        } catch (IOException e) {
+            return R.drawable.sunny; // 通信エラー
+        }
+        if (telop.isEmpty()) return R.drawable.sunny;
+
+        // telop (String) (晴れなど) を処理
+        switch (telop.charAt(0)) {
+            case '晴': return R.drawable.sunny;
+            case '雨': return R.drawable.rainy;
+            case '曇': return R.drawable.cloudy;
+            case '雲': return R.drawable.cloudy;
+            case '雪': return R.drawable.snowy;
+            case '雷': return R.drawable.lightning;
+            default: return R.drawable.sunny;
+        }
     }
 }

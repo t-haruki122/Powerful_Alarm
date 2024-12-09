@@ -127,7 +127,7 @@ public class AreaSettings extends AppCompatActivity {
 
 
     // 地域の名前を地域のIDに変換する関数
-    private String getAreaId(String area) {
+    public static String getAreaId(String area) {
         final String[] areaNames = {
                 "札幌",
                 "東京",
@@ -149,6 +149,7 @@ public class AreaSettings extends AppCompatActivity {
             }
         }
 
-        return "0";
+        // 全部違ったらとりあえず名古屋を返す
+        return "230010";
     }
 }
