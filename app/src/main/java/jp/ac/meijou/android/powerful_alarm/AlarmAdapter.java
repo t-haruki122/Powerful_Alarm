@@ -61,23 +61,37 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
         Log.d("AlarmAdapter", "表示するアラーム: " + alarm.getAlarmName() + " " + alarm.getHour() + ":" + alarm.getMinute() + " 曜日: " + alarm.getDays());
 
         // 削除ボタンのクリックリスナーを設定
+        // 削除ボタンのクリックリスナーを設定
         holder.deleteButton.setOnClickListener(v -> {
-            DatabaseHelper helper = new DatabaseHelper(holder.itemView.getContext());
-            SQLiteDatabase db = helper.getWritableDatabase();
+            // ダイアログを表示
+            new android.app.AlertDialog.Builder(holder.itemView.getContext())
+                    .setTitle("確認")
+                    .setMessage("本当に削除しますか？")
+                    .setPositiveButton("はい", (dialog, which) -> {
+                        // ユーザーが「はい」を選択した場合に削除を実行
+                        DatabaseHelper helper = new DatabaseHelper(holder.itemView.getContext());
+                        SQLiteDatabase db = helper.getWritableDatabase();
 
-            int alarmID = alarm.getAlarmID();
-            int rowsDeleted = db.delete("alarms", "alarmID=?", new String[]{String.valueOf(alarmID)});
+                        int alarmID = alarm.getAlarmID();
+                        int rowsDeleted = db.delete("alarms", "alarmID=?", new String[]{String.valueOf(alarmID)});
 
-            if (rowsDeleted > 0) {
-                Toast.makeText(holder.itemView.getContext(), "アラームを削除しました", Toast.LENGTH_SHORT).show();
-                alarmList.remove(position); // リストから削除
-                notifyItemRemoved(position); // UIを更新
-            } else {
-                Toast.makeText(holder.itemView.getContext(), "削除に失敗しました", Toast.LENGTH_SHORT).show();
-            }
+                        if (rowsDeleted > 0) {
+                            Toast.makeText(holder.itemView.getContext(), "アラームを削除しました", Toast.LENGTH_SHORT).show();
+                            alarmList.remove(position); // リストから削除
+                            notifyItemRemoved(position); // UIを更新
+                        } else {
+                            Toast.makeText(holder.itemView.getContext(), "削除に失敗しました", Toast.LENGTH_SHORT).show();
+                        }
 
-            db.close();
+                        db.close();
+                    })
+                    .setNegativeButton("いいえ", (dialog, which) -> {
+                        // ユーザーが「いいえ」を選択した場合は何もしない
+                        dialog.dismiss();
+                    })
+                    .show(); // ダイアログを表示
         });
+
 
         // Switch の状態変更を検知してデータベースを更新
         holder.switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
