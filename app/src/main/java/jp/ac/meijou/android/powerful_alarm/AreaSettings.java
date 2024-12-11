@@ -149,7 +149,7 @@ public class AreaSettings extends AppCompatActivity {
             }
         }
 
-        // 全部違ったらとりあえず名古屋を返す
-        return "230010";
+        // 全部違ったら"0"を返す
+        return "0";
     }
 }
