@@ -1,5 +1,7 @@
 package jp.ac.meijou.android.powerful_alarm;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.List;
+import java.util.Optional;
 
 import jp.ac.meijou.android.powerful_alarm.databinding.ActivityMain2Binding;
 
@@ -53,6 +56,39 @@ public class MainActivity2 extends AppCompatActivity {
         binding.setting.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity2.this, AreaSettings.class);
             startActivity(intent);
+        });
+
+        // 左下のアラームボタンを押したら確認ログを出してAlarmStopへ
+        binding.alarm.setOnClickListener(view -> {
+            // 地域を設定しているか確認
+            boolean isAreaPresent = false;
+            PrefDataStore prefDataStore = PrefDataStore.getInstance(this);
+            Optional<String> area = prefDataStore.getString("area");
+            if (area.isPresent()) isAreaPresent = true;
+
+            // アラートの生成
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("確認");
+            if (isAreaPresent) {
+                builder.setMessage("アラームのデモを再生しますか？");
+            } else {
+                builder.setMessage("地域が設定されていませんが、アラームのデモを再生しますか？");
+            }
+            builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // AlarmStopに遷移
+                    Intent intent = new Intent(MainActivity2.this, AlarmStop.class);
+                    startActivity(intent);
+                    finish(); // インテントを裏に残さない
+                }
+            });
+            builder.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {}
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
